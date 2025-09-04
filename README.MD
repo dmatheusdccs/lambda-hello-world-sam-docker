@@ -37,15 +37,14 @@ Prerequisites
 
 
 
-Project Structure
-aws-lambda-hello/
-+-- hello_world/
-¦ +-- app.py
-¦ +-- requirements.txt
-+-- template.yaml
-+-- README.md
+Project Structure:
 
-yaml
+   aws-lambda-hello/
+   +-- hello_world/
+   ¦    +-- app.py
+   ¦    +-- requirements.txt
+   +-- template.yaml
+   +-- README.md
 
 
 - `hello_world/app.py` ? Main Lambda function code.  
@@ -56,41 +55,45 @@ yaml
 
 ## Running Locally
 
-1. **Build the Lambda function**  
-   ```bash
+Follow these steps to build, validate, and run the Lambda function locally:
+
+
+1. Build the Lambda function
+
    sam build --use-container --template template.yaml
-Validate the template
 
-bash
 
-sam validate --template template.yaml
-Invoke the Lambda locally
+2. Validate the SAM template
 
-bash
+   sam validate --template template.yaml
 
-sam local invoke HelloWorldFunction
-Start local API Gateway
 
-bash
+3. Invoke the Lambda function locally
 
-sam local start-api
-Test the endpoint
-Open your browser or run:
+   sam local invoke HelloWorldFunction
 
-bash
 
-curl http://127.0.0.1:3000/hello
-? Expected output:
+4. Start the local API Gateway
 
-json
+   sam local start-api
 
-{"statusCode": 200, "body": "Hello from Lambda!"}
+
+5. Test the endpoint
+
+   Open your browser or run the following command in a terminal:
+
+   curl http://127.0.0.1:3000/hello
+
+   Expected output:
+
+   {"statusCode": 200, "body": "Hello from Lambda!"}
+
 
 Notes:
 
-   Make sure Docker is running before building or invoking Lambda.
-   The folder structure is critical: hello_world/ must contain both app.py and requirements.txt.
-   SAM automatically handles dependencies during the build process.
+- Make sure Docker is running before building or invoking the Lambda function.
+- The folder structure is critical: hello_world/ must contain both app.py and requirements.txt.
+- AWS SAM automatically handles dependencies during the build process.
 
 License
 This project is licensed under the MIT License.
