@@ -13,23 +13,35 @@ The function responds with "Hello from Lambda!" when accessed through a local AP
 Prerequisites
 
 
-AWS Account (no need to deploy yet)
+1. AWS Account
 
-Python 3.11
+   Required for full deployment to AWS.
+   Optional if you only want to run the project locally using SAM CLI and Docker.
 
-Docker Desktop
+2. Python 3.11
 
-AWS SAM CLI
+   Ensure Python is installed and added to your system PATH.
+   (Optional) Create a virtual environment to manage dependencies.
 
-(Optional) Python virtual environment
+3. Docker Desktop
+
+   Needed to run Lambda functions locally via AWS SAM CLI.
+
+4. AWS SAM CLI
+
+   Used to build, test, and deploy your Lambda function.
+
+5.(Optional) Python Virtual Environment
+
+   Recommended to isolate project dependencies.
 
 
 
 Project Structure
 aws-lambda-hello/
 +-- hello_world/
-¦ +-- app.py
-¦ +-- requirements.txt
+Â¦ +-- app.py
+Â¦ +-- requirements.txt
 +-- template.yaml
 +-- README.md
 
@@ -74,10 +86,11 @@ json
 
 {"statusCode": 200, "body": "Hello from Lambda!"}
 
-Notes
-Make sure Docker is running before building or invoking Lambda.
-The folder structure is critical: hello_world/ must contain both app.py and requirements.txt.
-SAM automatically handles dependencies during the build process.
+Notes:
+
+   Make sure Docker is running before building or invoking Lambda.
+   The folder structure is critical: hello_world/ must contain both app.py and requirements.txt.
+   SAM automatically handles dependencies during the build process.
 
 License
 This project is licensed under the MIT License.
