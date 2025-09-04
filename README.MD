@@ -31,7 +31,7 @@ Prerequisites
 
    Used to build, test, and deploy your Lambda function.
 
-5.(Optional) Python Virtual Environment
+   5.(Optional) Python Virtual Environment
 
    Recommended to isolate project dependencies.
 
