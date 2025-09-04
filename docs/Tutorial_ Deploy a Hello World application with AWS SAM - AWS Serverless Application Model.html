@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Tutorial: Deploy a Hello World application with AWS SAM - AWS Serverless Application Model</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="serverless-getting-started-hello-world" /><meta name="default_state" content="serverless-getting-started-hello-world" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-getting-started-hello-world.html" /><meta name="description" content="Learn how to use AWS SAM to deploy a basic Hello World application to the AWS Cloud." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Serverless Application Model" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Introduces you to AWS SAM, and shows you how to use AWS SAM to define, test, and deploy serverless applications." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-getting-started-hello-world.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/serverless-application-model/latest/developerguide/serverless-getting-started-hello-world.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/serverless-application-model/latest/developerguide/serverless-getting-started-hello-world.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/serverless-application-model/latest/developerguide/serverless-getting-started-hello-world.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/serverless-application-model/latest/developerguide/serverless-getting-started-hello-world.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-getting-started-hello-world.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-getting-started-hello-world.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/serverless-application-model/latest/developerguide/serverless-getting-started-hello-world.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/serverless-application-model/latest/developerguide/serverless-getting-started-hello-world.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/serverless-application-model/latest/developerguide/serverless-getting-started-hello-world.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/serverless-application-model/latest/developerguide/serverless-getting-started-hello-world.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/serverless-application-model/latest/developerguide/serverless-getting-started-hello-world.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/serverless-application-model/latest/developerguide/serverless-getting-started-hello-world.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/serverless-application-model/latest/developerguide/serverless-getting-started-hello-world.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/serverless-application-model/latest/developerguide/serverless-getting-started-hello-world.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/serverless-application-model/latest/developerguide/serverless-getting-started-hello-world.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/serverless-application-model/latest/developerguide/serverless-getting-started-hello-world.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/serverless-getting-started-hello-world.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/serverless-getting-started-hello-world.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/serverless-application-model/latest/developerguide/serverless-getting-started-hello-world.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/serverless-application-model/latest/developerguide/serverless-getting-started-hello-world.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-getting-started-hello-world.html" hreflang="x-default" /><meta name="feedback-item" content="Serverless Application Model" /><meta name="this_doc_product" content="AWS Serverless Application Model" /><meta name="this_doc_guide" content="Developer Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'serverless-application-model'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Tutorial: Deploy a Hello World application with AWS SAM" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Tutorial: Deploy a Hello World application with AWS SAM - AWS Serverless Application Model</title><meta name="pdf" content="/pdfs/serverless-application-model/latest/developerguide/serverless-application-model.pdf#serverless-getting-started-hello-world" /><meta name="rss" content="serverless-application-model-updates.rss" /><meta name="forums" content="https://repost.aws/" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Serverless%20Application%20Model&amp;topic_url=https://docs.aws.amazon.com/en_us/serverless-application-model/latest/developerguide/serverless-getting-started-hello-world.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/serverless-application-model/latest/developerguide/serverless-getting-started-hello-world.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/serverless-application-model/latest/developerguide/serverless-getting-started-hello-world.html" /><meta name="keywords" content="Serverless Application Model,SAM,SAM CLI,serverless applications,serverless,cloud computing,Lambda,API Gateway,CloudFormation,deployment,CI/CD,local testing,local,Getting started AWS SAM,AWS Serverless Application Model,AWS SAM,prerequisites,install AWS SAM CLI,AWS SAM tutorial,Hello World,sample,hello world tutorial,initialize AWS SAM,sam init,hello world,build application,deploy application,run application,Interact function,modify application,sync application,test application,delete application,troublehoot,learn more" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Serverless Application Model",
+        "item" : "https://docs.aws.amazon.com/serverless-application-model/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/serverless-application-model/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Getting started with AWS SAM",
+        "item" : "https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-getting-started.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Tutorial: Deploy a Hello World application with AWS SAM",
+        "item" : "https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-getting-started.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/serverless-application-model/latest/developerguide/serverless-application-model.pdf#serverless-getting-started-hello-world" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/serverless-application-model/index.html">AWS Serverless Application Model</a><a href="what-is-sam.html">Developer Guide</a></div><div id="page-toc-src"><a href="#serverless-getting-started-hello-world-prerequisites">Prerequisites</a><a href="#serverless-getting-started-hello-world-init">
+				Step 1: Initialize the sample Hello World application</a><a href="#serverless-getting-started-hello-world-build">Step 2: Build your application</a><a href="#serverless-getting-started-hello-world-deploy">Step 3: Deploy your application to the AWS Cloud</a><a href="#serverless-getting-started-hello-world-run">Step 4: Run your application</a><a href="#serverless-getting-started-hello-world-remote-invoke">Step 5: Interact with your function in the AWS Cloud</a><a href="#serverless-getting-started-hello-world-sync">Step 6: Modify and sync your application to the AWS Cloud</a><a href="#serverless-getting-started-hello-world-test">Step 7: (Optional) Test your application locally</a><a href="#serverless-getting-started-hello-world-delete">Step 8: Delete your application from the AWS Cloud</a><a href="#serverless-getting-started-hello-world-troubleshoot">Troubleshooting</a><a href="#serverless-getting-started-hello-world-learn">Learn more</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="serverless-getting-started-hello-world">Tutorial: Deploy a Hello World application with AWS SAM</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>In this tutorial, you use the AWS Serverless Application Model Command Line Interface (AWS SAM CLI) to complete the following:</p><div class="itemizedlist">
+		 
+		 
+        
+		 
+		 
+	<ul class="itemizedlist"><li class="listitem">
+			<p>Initialize, build, and deploy a sample <b>Hello World</b> application.</p>
+		</li><li class="listitem">
+			<p>Make local changes and sync to AWS CloudFormation.</p>
+		</li><li class="listitem">
+			<p>Perform local testing on your development host.</p>
+		</li><li class="listitem">
+			<p>Delete the sample application from the AWS Cloud.</p>
+		</li></ul></div><p>The sample <b>Hello World</b> application implements a basic API backend. It consists of the 
+		following resources:</p><div class="itemizedlist">
+		 
+		 
+		 
+	<ul class="itemizedlist"><li class="listitem">
+			<p><b>Amazon API Gateway</b> – API endpoint that you will use to invoke your function.</p>
+		</li><li class="listitem">
+			<p><b>AWS Lambda</b> – Function that processes the HTTP API GET request and returns a 
+				<code class="code">hello world</code> message.</p>
+		</li><li class="listitem">
+			<p><b>AWS Identity and Access Management (IAM) role</b> – Provisions permissions for the services to 
+				securely interact.</p>
+		</li></ul></div><p>The following diagram shows the components of this application:</p><div class="mediaobject">
+		 
+			<img src="/images/serverless-application-model/latest/developerguide/images/gs-01.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="A diagram of a Lambda function that's invoked when you send a GET request to the API Gateway endpoint." style="max-width:100%" />
+		 
+		 
+	</div><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#serverless-getting-started-hello-world-prerequisites">Prerequisites</a></p></li><li><p><a href="#serverless-getting-started-hello-world-init">
+				Step 1: Initialize the sample Hello World application</a></p></li><li><p><a href="#serverless-getting-started-hello-world-build">Step 2: Build your application</a></p></li><li><p><a href="#serverless-getting-started-hello-world-deploy">Step 3: Deploy your application to the AWS Cloud</a></p></li><li><p><a href="#serverless-getting-started-hello-world-run">Step 4: Run your application</a></p></li><li><p><a href="#serverless-getting-started-hello-world-remote-invoke">Step 5: Interact with your function in the AWS Cloud</a></p></li><li><p><a href="#serverless-getting-started-hello-world-sync">Step 6: Modify and sync your application to the AWS Cloud</a></p></li><li><p><a href="#serverless-getting-started-hello-world-test">Step 7: (Optional) Test your application locally</a></p></li><li><p><a href="#serverless-getting-started-hello-world-delete">Step 8: Delete your application from the AWS Cloud</a></p></li><li><p><a href="#serverless-getting-started-hello-world-troubleshoot">Troubleshooting</a></p></li><li><p><a href="#serverless-getting-started-hello-world-learn">Learn more</a></p></li></ul></div>
+		<h2 id="serverless-getting-started-hello-world-prerequisites">Prerequisites</h2>
+		<p>Verify that you have completed the following:</p>
+		<div class="itemizedlist">
+			 
+			 
+		<ul class="itemizedlist"><li class="listitem">
+				<p><a href="./prerequisites.html">AWS SAM prerequisites</a></p>
+			</li><li class="listitem">
+				<p><a href="./install-sam-cli.html">Install the AWS SAM CLI</a></p>
+			</li></ul></div>
+	<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you prefer using Visual Studio Code for serverless development, see <a href="https://docs.aws.amazon.com/toolkit-for-vscode/latest/userguide/sam-get-started.html#serverless-apps-create">Creating serverless applications</a> in the AWS Toolkit for VS Code User Guide for step-by-step instructions using the VS Code interface.</p></div></div>
+		<h2 id="serverless-getting-started-hello-world-init">
+				Step 1: Initialize the sample Hello World application</h2>
+		<p>In this step, you will use the AWS SAM CLI to create a sample <b>Hello World</b> 
+			application project on your local machine.</p>
+		<div class="procedure"><h6>To initialize the sample Hello World application</h6><ol><li>
+				<p>In your command line, run the following from a starting directory of your choice:</p>
+				<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><code class="prompt" copy="false">$ </code><code class="userinput">sam init</code></code></pre>
+				<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>This command initializes your serverless application and creates a project directory. 
+						The directory contains several files and folders, including the <code class="code">template.yaml</code> file, which is your AWS SAM template.</p><p>The installed Python version must match the <code class="code">Runtime</code> property specified in <code class="code">template.yaml</code>. 
+						For production workloads, we recommend using Python 3.12 or earlier versions that are fully supported in AWS environments. 
+						If the Python versions don't match, you'll encounter build errors.</p><p>To resolve version compatibility issues:</p><div class="itemizedlist">
+						 
+						 
+					<ul class="itemizedlist"><li class="listitem">
+							<p> Specify a compatible <a href="./sam-cli-command-reference-sam-init.html#sam-cli-command-reference-sam-init-options-runtime">runtime</a> during initialization: 
+								<code class="code">sam init --runtime python3.9</code></p>    
+						</li><li class="listitem">
+							<p>Modify the <code class="code">Runtime</code> property in <code class="code">template.yaml</code> after initialization</p>
+						</li></ul></div></div></div>
+			</li><li>
+				<p>The AWS SAM CLI will guide you through initializing a new application. Configure the following:</p>
+				<div class="orderedlist">
+					 
+					 
+					 
+					 
+					 
+					 
+					 
+				<ol><li>
+						<p>Select <b>AWS Quick Start Templates</b> to choose a starting template.</p>
+					</li><li>
+						<p>Choose the <b>Hello World Example</b> template and download it.</p>
+					</li><li>
+						<p>Use the Python runtime and <code>zip</code> package type.</p>
+					</li><li>
+						<p>For this tutorial, opt out of AWS X-Ray tracing. To learn more, see <a href="https://docs.aws.amazon.com/xray/latest/devguide/aws-xray.html">What is AWS X-Ray?</a> in the 
+							<em>AWS X-Ray Developer Guide</em>.</p>
+					</li><li>
+						<p>For this tutorial, opt out of monitoring with Amazon CloudWatch Application Insights. To learn more, see 
+							<a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch-application-insights.html">
+								Amazon CloudWatch Application Insights</a> in the <em>Amazon CloudWatch User Guide</em>.</p>
+					</li><li>
+						<p>For this tutorial, opt out of setting Structured Logging in JSON format on your Lambda functions.</p>
+					</li><li>
+						<p>Name your application as <b>sam-app</b>.</p>
+					</li></ol></div>
+				<p>To use the AWS SAM CLI interactive flow:</p>
+				<div class="itemizedlist">
+					 
+					 
+				<ul class="itemizedlist"><li class="listitem">
+						<p>Brackets (<code class="code">[ ]</code>) indicate default values. Leave your answer blank to select the default 
+							value.</p>
+					</li><li class="listitem">
+						<p>Enter <code class="userinput"><code class="code">y</code></code> for <b>yes</b>, and 
+							<code class="userinput"><code class="code">n</code></code> for <b>no</b>.</p>
+					</li></ul></div>
+				<p>The following is an example of the <code class="code">sam init</code> interactive flow:</p>
+				<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><code class="prompt" copy="false">$ </code><code class="userinput">sam init</code>
+<code class="replaceable">...</code>
+Which template source would you like to use?
+    1 - AWS Quick Start Templates
+    2 - Custom Template Location
+Choice: <code class="userinput">1</code>
+
+Choose an AWS Quick Start application template
+    1 - Hello World Example
+    2 - Data processing
+    3 - Hello World Example with Powertools for AWS Lambda
+    4 - Multi-step workflow
+    5 - Scheduled task
+    6 - Standalone function
+    7 - Serverless API
+    8 - Infrastructure event management 
+    9 - Lambda Response Streaming
+   10 - GraphQLApi Hello World Example
+   11 - Full Stack
+   12 - Lambda EFS example
+   13 - Serverless Connector Hello World Example
+   14 - Multi-step workflow with Connectors
+   15 - DynamoDB Example
+   16 - Machine Learning
+Template: <code class="userinput">1</code>
+
+Use the most popular runtime and package type? (Python and zip) [y/N]: <code class="userinput">y</code>
+
+Would you like to enable X-Ray tracing on the function(s) in your application?  [y/N]: <code class="userinput">ENTER</code>
+
+Would you like to enable monitoring using CloudWatch Application Insights?
+For more info, please view https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch-application-insights.html [y/N]: <code class="userinput">ENTER</code>
+					
+Would you like to set Structured Logging in JSON format on your Lambda functions?  [y/N]: <code class="userinput">ENTER</code>
+
+Project name [sam-app]: <code class="userinput">ENTER</code></code></pre>
+			</li><li>
+				<p>The AWS SAM CLI downloads your starting template and creates the application project directory structure on your 
+					local machine. The following is an example of the AWS SAM CLI output:</p>
+				<pre class="screen">Cloning from https://github.com/aws/aws-sam-cli-app-templates (process may take a moment)
+
+    -----------------------
+    Generating application:
+    -----------------------
+    Name: sam-app
+    Runtime: python3.9
+    Architectures: x86_64
+    Dependency Manager: pip
+    Application Template: hello-world
+    Output Directory: .
+    Configuration file: sam-app/samconfig.toml
+
+    Next steps can be found in the README file at sam-app/README.md
+
+
+Commands you can use next
+=========================
+[*] Create pipeline: cd sam-app &amp;&amp; sam pipeline init --bootstrap
+[*] Validate SAM template: cd sam-app &amp;&amp; sam validate
+[*] Test Function in the Cloud: cd sam-app &amp;&amp; sam sync --stack-name <span>{</span>stack-name} --watch</pre>
+			</li><li>
+				<p>From your command line, move to the newly created <code>sam-app</code> directory. The following is an 
+					example of what the AWS SAM CLI has created:</p>
+				<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If <code class="code">tree</code> command is not auto installed run this command:
+					<code class="code">brew install tree</code></p></div></div>
+				<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><code class="prompt" copy="false">$ </code><code class="userinput">cd sam-app</code>
+
+<code class="prompt" copy="false">$ </code><code class="userinput">tree</code>
+
+├── README.md
+├── __init__.py
+├── events
+│   └── event.json
+├── hello_world
+│   ├── __init__.py
+│   ├── app.py
+│   └── requirements.txt
+├── samconfig.toml
+├── template.yaml
+└── tests
+    ├── __init__.py
+    ├── integration
+    │   ├── __init__.py
+    │   └── test_api_gateway.py
+    ├── requirements.txt
+    └── unit
+        ├── __init__.py
+        └── test_handler.py
+        
+6 directories, 14 files</code></pre>
+				<p>Some important files to highlight:</p>
+				<div class="itemizedlist">
+					 
+					 
+					 
+					 
+				<ul class="itemizedlist"><li class="listitem">
+						<p><code>hello_world/app.py</code> – Contains your Lambda function code.</p>
+					</li><li class="listitem">
+						<p><code>hello_world/requirements.txt</code> – Contains any Python dependencies 
+							that your Lambda function requires.</p>
+					</li><li class="listitem">
+						<p><code>samconfig.toml</code> – Configuration file for your application that 
+							stores default parameters used by the AWS SAM CLI.</p>
+					</li><li class="listitem">
+						<p><code>template.yaml</code> – The AWS SAM template that contains your application infrastructure 
+							code.</p>
+					</li></ul></div>
+			</li></ol></div>
+		<p>You now have a completely authored serverless application on your local machine!</p>
+	 
+		<h2 id="serverless-getting-started-hello-world-build">Step 2: Build your application</h2>
+		<p>In this step, you use the AWS SAM CLI to build your application and prepare for deployment. When you build, the 
+			AWS SAM CLI creates a <code>.aws-sam</code> directory and organizes your function dependencies, project code, and 
+			project files there.</p>
+		<div class="procedure"><h6>To build your application</h6><ul><li>
+				<p>In your command line, from the <code>sam-app</code> project directory, run the following:</p>
+				<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><code class="prompt" copy="false">$ </code><code class="userinput">sam build</code></code></pre>
+				<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p> If you don't have Python on your local machine, use the <b>sam build --use-container
+					</b> command instead. The AWS SAM CLI will create a Docker container that includes your function's 
+						runtime and dependencies. This command requires Docker on your local machine. To install 
+						Docker, see <a href="./install-docker.html">Installing Docker</a>.</p></div></div>
+				<p>The following is an example of the AWS SAM CLI output:</p>
+				<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><code class="prompt" copy="false">$ </code><code class="userinput">sam build</code>
+Starting Build use cache
+Manifest file is changed (new hash: 3298f1304...d4d421) or dependency folder (.aws-sam/deps/4d3dfad6-a267-47a6-a6cd-e07d6fae318c) is missing for (HelloWorldFunction), downloading dependencies and copying/building source
+Building codeuri: /Users/<code class="replaceable">...</code>/Demo/sam-tutorial1/sam-app/hello_world runtime: python3.9 metadata: <span>{</span>} architecture: x86_64 functions: HelloWorldFunction
+Running PythonPipBuilder:CleanUp
+Running PythonPipBuilder:ResolveDependencies
+Running PythonPipBuilder:CopySource
+Running PythonPipBuilder:CopySource
+
+Build Succeeded
+
+Built Artifacts  : .aws-sam/build
+Built Template   : .aws-sam/build/template.yaml
+
+Commands you can use next
+=========================
+[*] Validate SAM template: sam validate
+[*] Invoke Function: sam local invoke
+[*] Test Function in the Cloud: sam sync --stack-name <span>{</span><span>{</span>stack-name}} --watch
+[*] Deploy: sam deploy --guided</code></pre>
+				<p>The following is a shortened example of the <code>.aws-sam</code> directory created by the AWS SAM 
+					CLI:</p>
+				<pre class="screen">.aws-sam
+├── build
+│   ├── HelloWorldFunction
+│   │   ├── __init__.py
+│   │   ├── app.py
+│   │   └── requirements.txt
+│   └── template.yaml
+└── build.toml</pre>
+			</li></ul></div>
+		<p>Some important files to highlight:</p>
+		<div class="itemizedlist">
+			 
+			 
+			 
+		<ul class="itemizedlist"><li class="listitem">
+				<p><code>build/HelloWorldFunction</code> – Contains your Lambda function code and dependencies. The 
+					AWS SAM CLI creates a directory for each function in your application.</p>
+			</li><li class="listitem">
+				<p><code>build/template.yaml</code> – Contains a copy of your AWS SAM template that is referenced by 
+					AWS CloudFormation at deployment.</p>
+			</li><li class="listitem">
+				<p><code>build.toml</code> – Configuration file that stores default parameter values referenced by 
+					the AWS SAM CLI when building and deploying your application.</p>
+			</li></ul></div>
+		<p>You are now ready to deploy your application to the AWS Cloud.</p>
+	 
+		<h2 id="serverless-getting-started-hello-world-deploy">Step 3: Deploy your application to the AWS Cloud</h2>
+		<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>This step requires AWS credentials configuration. For more information, see <a href="./prerequisites.html#prerequisites-configure-credentials">Step 5: Use the AWS CLI to configure AWS credentials</a> in <a href="./prerequisites.html">AWS SAM prerequisites</a>.</p></div></div>
+		<p>In this step, you use the AWS SAM CLI to deploy your application to the AWS Cloud. The AWS SAM CLI will do the 
+			following:</p>
+		<div class="itemizedlist">
+			 
+			 
+			 
+		<ul class="itemizedlist"><li class="listitem">
+				<p>Guide you through configuring your application settings for deployment.</p>
+			</li><li class="listitem">
+				<p>Upload your application files to Amazon Simple Storage Service (Amazon S3).</p>
+			</li><li class="listitem">
+				<p>Transform your AWS SAM template into an AWS CloudFormation template. It then uploads your template to the AWS CloudFormation service to 
+					provision your AWS resources.</p>
+			</li></ul></div>
+		<div class="procedure"><h6>To deploy your application</h6><ol><li>
+				<p>In your command line, from the <code>sam-app</code> project directory, run the following:</p>
+				<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><code class="prompt" copy="false">$ </code><code class="userinput">sam deploy --guided</code></code></pre>
+			</li><li>
+				<p>Follow the AWS SAM CLI interactive flow to configure your application settings. Configure the following:</p>
+				<div class="orderedlist">
+					 
+					 
+					 
+					 
+					 
+					 
+					 
+					 
+					 
+				<ol><li>
+						<p>The <b>AWS CloudFormation stack name</b> – A stack is a collection of AWS resources 
+							that you can manage as a single unit. To learn more, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacks.html">Working with stacks</a> in the 
+							<em>AWS CloudFormation User Guide</em>.</p>
+					</li><li>
+						<p>The <b>AWS Region</b> to deploy your AWS CloudFormation stack to. For more information, see 
+							<a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-endpoints.html">AWS CloudFormation 
+								endpoints</a> in the <em>AWS CloudFormation User Guide</em>.</p>
+					</li><li>
+						<p>For this tutorial, opt out of <b>confirming changes before deploy</b>.</p>
+					</li><li>
+						<p>Allow <b>IAM role creation</b> – This lets AWS SAM create the IAM role 
+							necessary for your API Gateway resource and Lambda function resource to interact.</p>
+					</li><li>
+						<p>For this tutorial, opt out of <b>disabling rollback</b>.</p>
+					</li><li>
+						<p>Allow <b>HelloWorldFunction without authorization defined</b> – This message 
+							displays because your API Gateway endpoint is configured to be publicly accessible, without authorization. Since this 
+							is the intended configuration for your Hello World application, allow the AWS SAM CLI to continue. For more
+							information about configuring authorization, see <a href="./serverless-controlling-access-to-apis.html">Control API access with your AWS SAM template</a>.</p>
+					</li><li>
+						<p><b>Save arguments to configuration file</b> – This will update your 
+							application’s <code>samconfig.toml</code> file with your deployment preferences.</p>
+					</li><li>
+						<p>Select the default <b>configuration file name</b>.</p>
+					</li><li>
+						<p>Select the default <b>configuration environment</b>.</p>
+					</li></ol></div>
+				<p>The following is an example output of the <code class="code">sam deploy --guided</code> interactive flow:</p>
+				<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><code class="prompt" copy="false">$ </code><code class="userinput">sam deploy --guided</code>
+
+Configuring SAM deploy
+======================
+
+    Looking for config file [samconfig.toml] :  Found
+    Reading default arguments  :  Success
+
+    Setting default arguments for 'sam deploy'
+    =========================================
+    Stack Name [sam-app]: <code class="userinput">ENTER</code>
+    AWS Region [us-west-2]: <code class="userinput">ENTER</code>
+    #Shows you resources changes to be deployed and require a 'Y' to initiate deploy
+    Confirm changes before deploy [Y/n]: <code class="userinput">n</code>
+    #SAM needs permission to be able to create roles to connect to the resources in your template
+    Allow SAM CLI IAM role creation [Y/n]: <code class="userinput">ENTER</code>
+    #Preserves the state of previously provisioned resources when an operation fails
+    Disable rollback [y/N]: <code class="userinput">ENTER</code>
+    HelloWorldFunction may not have authorization defined, Is this okay? [y/N]: <code class="userinput">y</code>
+    Save arguments to configuration file [Y/n]: <code class="userinput">ENTER</code>
+    SAM configuration file [samconfig.toml]: <code class="userinput">ENTER</code>
+    SAM configuration environment [default]: <code class="userinput">ENTER</code></code></pre>
+			</li><li>
+				<p>The AWS SAM CLI deploys your application by doing the following:</p>
+				<div class="itemizedlist">
+					 
+					 
+					 
+				<ul class="itemizedlist"><li class="listitem">
+						<p>The AWS SAM CLI creates an Amazon S3 bucket and uploads your <code>.aws-sam</code> directory.</p>
+					</li><li class="listitem">
+						<p>The AWS SAM CLI transforms your AWS SAM template into AWS CloudFormation and uploads it to the AWS CloudFormation service.</p>
+					</li><li class="listitem">
+						<p>AWS CloudFormation provisions your resources.</p>
+					</li></ul></div>
+				<p>During deployment, the AWS SAM CLI displays your progress. The following is an example output:</p>
+				<pre class="screen">Looking for resources needed for deployment:
+
+    Managed S3 bucket: aws-sam-cli-managed-default-samclisam-s3-demo-bucket-1a4x26zbcdkqr
+    A different default S3 bucket can be set in samconfig.toml
+
+    Parameter "stack_name=sam-app" in [default.deploy.parameters] is defined as a global parameter [default.global.parameters].
+    This parameter will be only saved under [default.global.parameters] in /Users/<code class="replaceable">...</code>/Demo/sam-tutorial1/sam-app/samconfig.toml.
+
+    Saved arguments to config file
+    Running 'sam deploy' for future deployments will use the parameters saved above.
+    The above parameters can be changed by modifying samconfig.toml
+    Learn more about samconfig.toml syntax at
+    https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-config.html
+
+File with same data already exists at sam-app/da3c598813f1c2151579b73ad788cac8, skipping upload
+
+    Deploying with following values
+    ===============================
+    Stack name                   : sam-app
+    Region                       : us-west-2
+    Confirm changeset            : False
+    Disable rollback             : False
+    Deployment s3 bucket         : aws-sam-cli-managed-default-samclisam-s3-demo-bucket-1a4x26zbcdkqr
+    Capabilities                 : ["CAPABILITY_IAM"]
+    Parameter overrides          : <span>{</span>}
+    Signing Profiles             : <span>{</span>}
+
+Initiating deployment
+=====================
+
+File with same data already exists at sam-app/2bebf67c79f6a743cc5312f6dfc1efee.template, skipping upload
+
+
+Waiting for changeset to be created..
+
+CloudFormation stack changeset
+---------------------------------------------------------------------------------------------------------------------------------------------
+Operation                           LogicalResourceId                   ResourceType                        Replacement
+---------------------------------------------------------------------------------------------------------------------------------------------
+* Modify                            HelloWorldFunction                  AWS::Lambda::Function               False
+* Modify                            ServerlessRestApi                   AWS::ApiGateway::RestApi            False
+- Delete                            AwsSamAutoDependencyLayerNestedSt   AWS::CloudFormation::Stack          N/A
+                                    ack
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Changeset created successfully. arn:aws:cloudformation:us-west-2:012345678910:changeSet/samcli-deploy1678917603/22e05525-08f9-4c52-a2c4-f7f1fd055072
+
+
+2023-03-15 12:00:16 - Waiting for stack create/update to complete
+
+CloudFormation events from stack operations (refresh every 0.5 seconds)
+---------------------------------------------------------------------------------------------------------------------------------------------
+ResourceStatus                      ResourceType                        LogicalResourceId                   ResourceStatusReason
+---------------------------------------------------------------------------------------------------------------------------------------------
+UPDATE_IN_PROGRESS                  AWS::Lambda::Function               HelloWorldFunction                  -
+UPDATE_COMPLETE                     AWS::Lambda::Function               HelloWorldFunction                  -
+UPDATE_COMPLETE_CLEANUP_IN_PROGRE   AWS::CloudFormation::Stack          sam-app                             -
+SS
+DELETE_IN_PROGRESS                  AWS::CloudFormation::Stack          AwsSamAutoDependencyLayerNestedSt   -
+                                                                        ack
+DELETE_COMPLETE                     AWS::CloudFormation::Stack          AwsSamAutoDependencyLayerNestedSt   -
+                                                                        ack
+UPDATE_COMPLETE                     AWS::CloudFormation::Stack          sam-app                             -
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+CloudFormation outputs from deployed stack
+----------------------------------------------------------------------------------------------------------------------------------------------
+Outputs
+----------------------------------------------------------------------------------------------------------------------------------------------
+Key                 HelloWorldFunctionIamRole
+Description         Implicit IAM Role created for Hello World function
+Value               arn:aws:iam::012345678910:role/sam-app-HelloWorldFunctionRole-15GLOUR9LMT1W
+
+Key                 HelloWorldApi
+Description         API Gateway endpoint URL for Prod stage for Hello World function
+Value               https://&lt;restapiid&gt;.execute-api.us-west-2.amazonaws.com/Prod/hello/
+
+Key                 HelloWorldFunction
+Description         Hello World Lambda Function ARN
+Value               arn:aws:lambda:us-west-2:012345678910:function:sam-app-HelloWorldFunction-yQDNe17r9maD
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Successfully created/updated stack - sam-app in us-west-2</pre>
+			</li></ol></div>
+		<p>Your application is now deployed and running in the AWS Cloud!</p>
+	 
+		<h2 id="serverless-getting-started-hello-world-run">Step 4: Run your application</h2>
+		<p>In this step, you will send a GET request to your API endpoint and see your Lambda function output.</p>
+		<div class="procedure"><h6>To get your API endpoint value</h6><ol><li>
+				<p>From the information displayed by the AWS SAM CLI in the previous step, locate the <code class="code">Outputs</code> section. 
+					In this section, locate your <code class="code">HelloWorldApi</code> resource to find your HTTP endpoint value. The following is an 
+					example output:</p>
+				<pre class="screen">----------------------------------------------------------------------------------------------------------------------------------------------
+Outputs
+----------------------------------------------------------------------------------------------------------------------------------------------
+...
+Key                 HelloWorldApi
+Description         API Gateway endpoint URL for Prod stage for Hello World function
+Value               https://ets1gv8lxi.execute-api.us-west-2.amazonaws.com/Prod/hello/
+...
+----------------------------------------------------------------------------------------------------------------------------------------------</pre>
+			</li><li>
+				<p>Alternatively, you can use the <b>sam list endpoints --output json</b> command to get this 
+					information. The following is an example output:</p>
+				<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><code class="prompt" copy="false">$ </code><code class="userinput">sam list endpoints --output json</code>
+2023-03-15 12:39:19 Loading policies from IAM...
+2023-03-15 12:39:25 Finished loading policies from IAM.
+[
+  <span>{</span>
+    "LogicalResourceId": "HelloWorldFunction",
+    "PhysicalResourceId": "sam-app-HelloWorldFunction-yQDNe17r9maD",
+    "CloudEndpoint": "-",
+    "Methods": "-"
+  },
+  <span>{</span>
+    "LogicalResourceId": "ServerlessRestApi",
+    "PhysicalResourceId": "ets1gv8lxi",
+    "CloudEndpoint": [
+      "https://ets1gv8lxi.execute-api.us-west-2.amazonaws.com/Prod",
+      "https://ets1gv8lxi.execute-api.us-west-2.amazonaws.com/Stage"
+    ],
+    "Methods": [
+      "/hello['get']"
+    ]
+  }
+]</code></pre>
+			</li></ol></div>
+		<div class="procedure"><h6>To invoke your function</h6><ul><li>
+				<p>Using your browser or the command line, send a GET request to your API endpoint. The following is an example 
+					using the curl command:</p>
+				<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><code class="prompt" copy="false">$ </code><code class="userinput">curl https://ets1gv8lxi.execute-api.us-west-2.amazonaws.com/Prod/hello/</code>
+<span>{</span>"message": "hello world"}</code></pre>
+			</li></ul></div>
+	 
+		<h2 id="serverless-getting-started-hello-world-remote-invoke">Step 5: Interact with your function in the AWS Cloud</h2>
+		<p>In this step, you use the AWS SAM CLI to invoke your Lambda function in the AWS Cloud.</p>
+		<div class="procedure"><h6>To invoke your Lambda function in the cloud</h6><ol><li>
+				<p>Take note of your function’s <code class="code">LogicalResourceId</code> from the previous step. It should be <code class="code">HelloWorldFunction</code>.</p>
+			</li><li>
+				<p>In your command line, from the <code>sam-app</code> project directory, run the following:</p>
+				<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><code class="prompt" copy="false">$ </code><code class="userinput">sam remote invoke <code class="replaceable">HelloWorldFunction</code> --stack-name <code class="replaceable">sam-app</code></code></code></pre>
+			</li><li>
+				<p>The AWS SAM CLI invokes your function in the cloud and returns a response. The following is an example output:</p>
+				<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><code class="prompt" copy="false">$ </code><code class="userinput">sam remote invoke HelloWorldFunction --stack-name sam-app</code>
+
+Invoking Lambda Function HelloWorldFunction                                       
+START RequestId: d5ef494b-5f45-4086-86fd-d7322fa1a1f9 Version: $LATEST
+END RequestId: d5ef494b-5f45-4086-86fd-d7322fa1a1f9
+REPORT RequestId: d5ef494b-5f45-4086-86fd-d7322fa1a1f9  Duration: 6.62 ms       Billed Duration: 7 ms     Memory Size: 128 MB     Max Memory Used: 67 MB  Init Duration: 164.06 ms
+<span>{</span>"statusCode":200,"body":"<span>{</span>\"message\":\"hello world\"}"}% </code></pre>
+			</li></ol></div>
+		
+	 
+		<h2 id="serverless-getting-started-hello-world-sync">Step 6: Modify and sync your application to the AWS Cloud</h2>
+		<p>In this step, you use the AWS SAM CLI <b>sam sync --watch</b> command to sync local changes to the 
+			AWS Cloud.</p>
+		<div class="procedure"><h6>To use sam sync</h6><ol><li>
+				<p>In your command line, from the <code>sam-app</code> project directory, run the following:</p>
+				<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><code class="prompt" copy="false">$ </code><code class="userinput">sam sync --watch</code></code></pre>
+			</li><li>
+				<p>The AWS SAM CLI prompts you to confirm that you are syncing a development stack. Since the 
+					<b>sam sync --watch</b> command automatically deploys local changes to the AWS Cloud in real time, we 
+					recommend it for development environments only.</p>
+				<p>The AWS SAM CLI performs an initial deployment before it begins monitoring for local changes. The following is an 
+					example output:</p>
+				<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><code class="prompt" copy="false">$ </code><code class="userinput">sam sync --watch</code>
+The SAM CLI will use the AWS Lambda, Amazon API Gateway, and AWS StepFunctions APIs to upload your code without
+performing a CloudFormation deployment. This will cause drift in your CloudFormation stack.
+**The sync command should only be used against a development stack**.
+
+Confirm that you are synchronizing a development stack.
+
+Enter Y to proceed with the command, or enter N to cancel:
+ [Y/n]: <code class="userinput">y</code>
+Queued infra sync. Waiting for in progress code syncs to complete...
+Starting infra sync.
+Manifest is not changed for (HelloWorldFunction), running incremental build
+Building codeuri: /Users/<code class="replaceable">...</code>/Demo/sam-tutorial1/sam-app/hello_world runtime: python3.9 metadata: <span>{</span>} architecture: x86_64 functions: HelloWorldFunction
+Running PythonPipBuilder:CopySource
+
+Build Succeeded
+
+Successfully packaged artifacts and wrote output template to file /var/folders/45/5ct135bx3fn2551_ptl5g6_80000gr/T/tmpq3x9vh63.
+Execute the following command to deploy the packaged template
+sam deploy --template-file /var/folders/45/5ct135bx3fn2551_ptl5g6_80000gr/T/tmpq3x9vh63 --stack-name &lt;YOUR STACK NAME&gt;
+
+
+    Deploying with following values
+    ===============================
+    Stack name                   : sam-app
+    Region                       : us-west-2
+    Disable rollback             : False
+    Deployment s3 bucket         : aws-sam-cli-managed-default-samclisam-s3-demo-bucket-1a4x26zbcdkqr
+    Capabilities                 : ["CAPABILITY_NAMED_IAM", "CAPABILITY_AUTO_EXPAND"]
+    Parameter overrides          : <span>{</span>}
+    Signing Profiles             : null
+
+Initiating deployment
+=====================
+
+
+2023-03-15 13:10:05 - Waiting for stack create/update to complete
+
+CloudFormation events from stack operations (refresh every 0.5 seconds)
+---------------------------------------------------------------------------------------------------------------------------------------------
+ResourceStatus                      ResourceType                        LogicalResourceId                   ResourceStatusReason
+---------------------------------------------------------------------------------------------------------------------------------------------
+UPDATE_IN_PROGRESS                  AWS::CloudFormation::Stack          sam-app                             Transformation succeeded
+CREATE_IN_PROGRESS                  AWS::CloudFormation::Stack          AwsSamAutoDependencyLayerNestedSt   -
+                                                                        ack
+CREATE_IN_PROGRESS                  AWS::CloudFormation::Stack          AwsSamAutoDependencyLayerNestedSt   Resource creation Initiated
+                                                                        ack
+CREATE_COMPLETE                     AWS::CloudFormation::Stack          AwsSamAutoDependencyLayerNestedSt   -
+                                                                        ack
+UPDATE_IN_PROGRESS                  AWS::Lambda::Function               HelloWorldFunction                  -
+UPDATE_COMPLETE                     AWS::Lambda::Function               HelloWorldFunction                  -
+UPDATE_COMPLETE_CLEANUP_IN_PROGRE   AWS::CloudFormation::Stack          sam-app                             -
+SS
+UPDATE_COMPLETE                     AWS::CloudFormation::Stack          sam-app                             -
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+CloudFormation outputs from deployed stack
+----------------------------------------------------------------------------------------------------------------------------------------------
+Outputs
+----------------------------------------------------------------------------------------------------------------------------------------------
+Key                 HelloWorldFunctionIamRole
+Description         Implicit IAM Role created for Hello World function
+Value               arn:aws:iam::012345678910:role/sam-app-HelloWorldFunctionRole-15GLOUR9LMT1W
+
+Key                 HelloWorldApi
+Description         API Gateway endpoint URL for Prod stage for Hello World function
+Value               https://ets1gv8lxi.execute-api.us-west-2.amazonaws.com/Prod/hello/
+
+Key                 HelloWorldFunction
+Description         Hello World Lambda Function ARN
+Value               arn:aws:lambda:us-west-2:012345678910:function:sam-app-HelloWorldFunction-yQDNe17r9maD
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Stack update succeeded. Sync infra completed.
+
+Infra sync completed.
+CodeTrigger not created as CodeUri or DefinitionUri is missing for ServerlessRestApi.</code></pre>
+			</li></ol></div>
+		<p>Next, you will modify your Lambda function code. The AWS SAM CLI will automatically detect this change and sync your 
+			application to the AWS Cloud.</p>
+		<div class="procedure"><h6>To modify and sync your application</h6><ol><li>
+				<p>In your IDE of choice, open the <code>sam-app/hello_world/app.py</code> file.</p>
+			</li><li>
+				<p>Change the <code class="code">message</code> and save your file. The following is an example:</p>
+				<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (python)--><code class="python ">import json
+<code class="replaceable">...</code>
+def lambda_handler(event, context):
+    <code class="replaceable">...</code>
+    return <span>{</span>
+        "statusCode": 200,
+        "body": json.dumps(<span>{</span>
+            "message": "<code class="replaceable">hello everyone!</code>",
+            <code class="replaceable">...</code>
+        }),
+    }</code></pre>
+			</li><li>
+				<p>The AWS SAM CLI detects your change and syncs your application to the AWS Cloud. The following is an example 
+					output:</p>
+				<pre class="screen">Syncing Lambda Function HelloWorldFunction...
+Manifest is not changed for (HelloWorldFunction), running incremental build
+Building codeuri: /Users/<code class="replaceable">...</code>/Demo/sam-tutorial1/sam-app/hello_world runtime: python3.9 metadata: <span>{</span>} architecture: x86_64 functions: HelloWorldFunction
+Running PythonPipBuilder:CopySource
+Finished syncing Lambda Function HelloWorldFunction.</pre>
+			</li><li>
+				<p>To verify your change, send a GET request to your API endpoint again.</p>
+				<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><code class="prompt" copy="false">$ </code><code class="userinput">curl https://ets1gv8lxi.execute-api.us-west-2.amazonaws.com/Prod/hello/</code>
+<span>{</span>"message": "hello everyone!"}</code></pre>
+			</li></ol></div>
+	 
+		<h2 id="serverless-getting-started-hello-world-test">Step 7: (Optional) Test your application locally</h2>
+		<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>This step is optional.</p></div></div>
+		<div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>This step requires Docker on your local machine. You must have Docker installed and configured to use the AWS SAM CLI for local testing. For more 
+				information, see <a href="./install-docker.html">Installing Docker</a>.</p></div></div>
+		<p>In this step, you use the AWS SAM CLI <b>sam local</b> command to test your application locally. To 
+			accomplish this, the AWS SAM CLI creates a local environment using Docker. This local environment emulates 
+			the cloud-based execution environment of your Lambda function.</p>
+		<p>You will do the following:</p>
+		<div class="orderedlist">
+			 
+			 
+		<ol><li>
+				<p>Create a local environment for your Lambda function and invoke it.</p>
+			</li><li>
+				<p>Host your HTTP API endpoint locally and use it to invoke your Lambda function.</p>
+			</li></ol></div>
+		<div class="procedure"><h6>To invoke your Lambda function locally</h6><ol><li>
+				<p>In your command line, from the <code>sam-app</code> project directory, run the following:</p>
+				<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><code class="prompt" copy="false">$ </code><code class="userinput">sam local invoke</code></code></pre>
+			</li><li>
+				<p>The AWS SAM CLI creates a local Docker container and invokes your function. The following is an 
+					example output:</p>
+				<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><code class="prompt" copy="false">$ </code><code class="userinput">sam local invoke</code>
+Invoking app.lambda_handler (python3.9)
+Local image was not found.
+Removing rapid images for repo public.ecr.aws/sam/emulation-python3.9
+Building image.....................
+Using local image: public.ecr.aws/lambda/python:3.9-rapid-x86_64.
+
+Mounting /Users/<code class="replaceable">...</code>/Demo/sam-tutorial1/sam-app/.aws-sam/build/HelloWorldFunction as /var/task:ro,delegated inside runtime container
+START RequestId: b046db01-2a00-415d-af97-35f3a02e9eb6 Version: $LATEST
+END RequestId: b046db01-2a00-415d-af97-35f3a02e9eb6
+REPORT RequestId: b046db01-2a00-415d-af97-35f3a02e9eb6    Init Duration: 1.01 ms    Duration: 633.45 ms    Billed Duration: 634 ms    Memory Size: 128 MB    Max Memory Used: 128 MB
+<span>{</span>"statusCode": 200, "body": "<span>{</span>\"message\": \"hello world\"}"}</code></pre>
+			</li></ol></div>
+		<div class="procedure"><h6>To host your API locally</h6><ol><li>
+				<p>In your command line, from the <code>sam-app</code> project directory, run the following:</p>
+				<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><code class="prompt" copy="false">$ </code><code class="userinput">sam local start-api</code></code></pre>
+			</li><li>
+				<p>The AWS SAM CLI creates a local Docker container for your Lambda function and creates a local 
+					HTTP server to simulate your API endpoint. The following is an example output:</p>
+				<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><code class="prompt" copy="false">$ </code><code class="userinput">sam local start-api</code>
+Initializing the lambda functions containers.
+Local image is up-to-date
+Using local image: public.ecr.aws/lambda/python:3.9-rapid-x86_64.
+
+Mounting /Users/<code class="replaceable">...</code>/Demo/sam-tutorial1/sam-app/.aws-sam/build/HelloWorldFunction as /var/task:ro,delegated inside runtime container
+Containers Initialization is done.
+Mounting HelloWorldFunction at http://127.0.0.1:3000/hello [GET]
+You can now browse to the above endpoints to invoke your functions. You do not need to restart/reload SAM CLI while working on your functions, changes will be reflected instantly/automatically. If you used sam build before running local commands, you will need to re-run sam build for the changes to be picked up. You only need to restart AWS SAM CLI if you update your AWS SAM template
+2023-03-15 14:25:21 WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:3000
+2023-03-15 14:25:21 Press CTRL+C to quit</code></pre>
+			</li><li>
+				<p>Using your browser or the command line, send a GET request to your local API endpoint. The following is an 
+					example using the curl command:</p>
+				<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><code class="prompt" copy="false">$ </code><code class="userinput">curl http://127.0.0.1:3000/hello</code>
+<span>{</span>"message": "hello world"}</code></pre>
+			</li></ol></div>
+	 
+		<h2 id="serverless-getting-started-hello-world-delete">Step 8: Delete your application from the AWS Cloud</h2>
+		<p>In this step, you use the AWS SAM CLI <b>sam delete</b> command to delete your application from the 
+			AWS Cloud.</p>
+		<div class="procedure"><h6>To delete your application from the AWS Cloud</h6><ol><li>
+				<p>In your command line, from the <code>sam-app</code> project directory, run the following:</p>
+				<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><code class="prompt" copy="false">$ </code><code class="userinput">sam delete</code></code></pre>
+			</li><li>
+				<p>The AWS SAM CLI will ask you to confirm. Then, it will delete your application’s Amazon S3 bucket and AWS CloudFormation stack. 
+					The following is an example output:</p>
+				<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli ()--><code class="nohighlight"><code class="prompt" copy="false">$ </code><code class="userinput">sam delete</code>
+    Are you sure you want to delete the stack sam-app in the region us-west-2 ? [y/N]: <code class="userinput">y</code>
+    Are you sure you want to delete the folder sam-app in S3 which contains the artifacts? [y/N]: <code class="userinput">y</code>
+    - Deleting S3 object with key c6ce8fa8b5a97dd022ecd006536eb5a4
+    - Deleting S3 object with key 5d513a459d062d644f3b7dd0c8b56a2a.template
+    - Deleting S3 object with key sam-app/2bebf67c79f6a743cc5312f6dfc1efee.template
+    - Deleting S3 object with key sam-app/6b208d0e42ad15d1cee77d967834784b.template
+    - Deleting S3 object with key sam-app/da3c598813f1c2151579b73ad788cac8
+    - Deleting S3 object with key sam-app/f798cdd93cee188a71d120f14a035b11
+    - Deleting Cloudformation stack sam-app
+
+Deleted successfully</code></pre>
+			</li></ol></div>
+	 
+		<h2 id="serverless-getting-started-hello-world-troubleshoot">Troubleshooting</h2>
+		<p>To troubleshoot the AWS SAM CLI, see <a href="./sam-cli-troubleshooting.html">AWS SAM CLI troubleshooting</a>.</p>
+	 
+		<h2 id="serverless-getting-started-hello-world-learn">Learn more</h2>
+		<p>To continue learning about AWS SAM, see the following resources:</p>
+		
+		<div class="itemizedlist">
+			 
+			
+			 
+			
+			 
+		<ul class="itemizedlist"><li class="listitem">
+				<p><b><a href="https://s12d.com/sam-ws-en-intro" rel="noopener noreferrer" target="_blank"><span>The Complete AWS SAM 
+					Workshop</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></b> – A workshop designed to teach you many of the major features that AWS SAM 
+					provides.</p>
+			</li><li class="listitem">
+				<p><b><a href="https://www.youtube.com/playlist?list=PLJo-rJlep0ED198FJnTzhIB5Aut_1vDAd" rel="noopener noreferrer" target="_blank"><span>
+					Sessions with SAM</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></b> – Video series created by our AWS Serverless Developer
+					Advocate team on using AWS SAM.</p>
+			</li><li class="listitem">
+				<p><b><a href="https://serverlessland.com/" rel="noopener noreferrer" target="_blank"><span>Serverless Land</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></b> – 
+					Site that brings together the latest information, blogs, videos, code, and learning resources for AWS 
+					serverless.</p>
+			</li></ul></div>
+	<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./reference-sam-cli-install-verify.html">Optional: Verify the AWS SAM CLI installer</div><div id="next" class="next-link" accesskey="n" href="./convert-lambda-to-sam.html">Converting from Lambda</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Serverless Application Model&amp;topic_url=https://docs.aws.amazon.com/en_us/serverless-application-model/latest/developerguide/serverless-getting-started-hello-world.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Serverless Application Model&amp;topic_url=https://docs.aws.amazon.com/en_us/serverless-application-model/latest/developerguide/serverless-getting-started-hello-world.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>
